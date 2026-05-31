@@ -1,0 +1,16 @@
+//go:build windows
+// +build windows
+
+package ulimit
+
+import "github.com/kinet-labs/log"
+
+const DefaultFDLimit = 16384
+
+// Set is a no-op for windows and will warn if the default is not used.
+func Set(limit uint64, log log.Logger) error {
+	if limit != DefaultFDLimit {
+		log.Warn("fd-limit is not supported for windows")
+	}
+	return nil
+}
